@@ -1,6 +1,3 @@
-//
-// Created by matf-rg on 4.12.20..
-//
 
 #ifndef PROJECT_BASE_MESH_H
 #define PROJECT_BASE_MESH_H
@@ -9,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <rg/Error.h>
+#include <rg/Shader.h>
 struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
@@ -78,7 +76,7 @@ private:
         unsigned int VBO;
         unsigned int EBO;
 
-        glGenVertexArray(1, &VAO);
+        glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
         glGenBuffers(1, &EBO);
 

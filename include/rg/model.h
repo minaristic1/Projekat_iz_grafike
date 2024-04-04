@@ -91,7 +91,7 @@ private:
             vertices.push_back(vertex);
         }
 
-        for (unsigned int i = 0; i < mesh->mFaces; ++i) {
+        for (unsigned int i = 0; i <  mesh->mFaces; ++i) {
             aiFace face = mesh->mFaces[i];
 
             for (unsigned int j = 0; j < face.mNumIndices; ++j) {
