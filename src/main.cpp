@@ -156,10 +156,18 @@ int main() {
     Shader ourShader("resources/shaders/model_lighting.vs", "resources/shaders/model_lighting.fs");
     Shader shader("resources/shaders/blending.vs", "resources/shaders/blending.fs");
     Shader skyboxShader("resources/shaders/skybox.vs", "resources/shaders/skybox.fs");
+    //Shader floorShader("resources/shaders/parallax.vs", "resources/shaders/parallax.fs");
     // load models
     // -----------
     Model ourModel("resources/objects/kuca/Manor.obj");
     ourModel.SetShaderTextureNamePrefix("material.");
+
+    Model spiderModel("resources/objects/pauk/Spider.obj");
+    spiderModel.SetShaderTextureNamePrefix("material.");
+
+    Model pumpkinModel("resources/objects/bundeva/pumpkin.obj");
+    pumpkinModel.SetShaderTextureNamePrefix("material.");
+
 
     float planeVertices[] = {
             5.0f, 0.0f, 5.0f, 20.0f, 0.0f,
@@ -277,27 +285,27 @@ int main() {
 
     vector<glm::vec3> vegetation
             {
-                    glm::vec3(-1.5f, 0.5f, -0.48f),
-                    glm::vec3( 1.5f, 0.5f, 0.51f),
-                    glm::vec3( 2.0f, 0.5f, 0.7f),
-                    glm::vec3(-3.3f, 0.5f, -2.3f),
-                    glm::vec3 (3.5f, 0.5f, -0.6f),
-                    glm::vec3(-2.5f, 0.5f, -0.48f),
-                    glm::vec3( 2.5f, 0.5f, 0.51f),
-                    glm::vec3( 1.0f, 0.5f, 0.7f),
-                    glm::vec3(-5.3f, 0.5f, -2.3f),
-                    glm::vec3 (5.5f, 0.5f, -0.6f),
-                    glm::vec3(-1.5f, 0.5f, -1.48f),
-                    glm::vec3( 1.5f, 0.5f, 2.51f),
-                    glm::vec3( 2.0f, 0.5f, 3.7f),
-                    glm::vec3(-3.3f, 0.5f, -2.3f),
-                    glm::vec3 (3.5f, 0.5f, -1.6f),
-                    glm::vec3(-2.5f, 0.5f, -2.48f),
-                    glm::vec3( 2.5f, 0.5f, 5.51f),
-                    glm::vec3( 1.0f, 0.5f, 4.7f),
-                    glm::vec3(-5.3f, 0.5f, -3.3f),
-                    glm::vec3 (5.5f, 0.5f, -2.6f),
-                    glm::vec3(-2.5f, 0.5f, -3.48f),
+                    glm::vec3(-11.5f, 0.5f, -10.48f),
+                    glm::vec3( 11.5f, 0.5f, 10.51f),
+                    glm::vec3( 12.0f, 0.5f, 10.7f),
+                    glm::vec3(-13.3f, 0.5f, -12.3f),
+                    glm::vec3 (13.5f, 0.5f, -10.6f),
+                    glm::vec3(-12.5f, 0.5f, -10.4f),
+                    glm::vec3( 12.5f, 0.5f, 10.5f),
+                    glm::vec3( 11.0f, 0.5f, 10.7f),
+                    glm::vec3(-15.3f, 0.5f, -12.3f),
+                    glm::vec3 (15.5f, 0.5f, -10.6f),
+                    glm::vec3(-11.5f, 0.5f, -11.4f),
+                    glm::vec3( 11.5f, 0.5f, 12.5f),
+                    glm::vec3( 12.0f, 0.5f, 13.7f),
+                    glm::vec3(-13.3f, 0.5f, -12.3f),
+                    glm::vec3 (13.5f, 0.5f, -11.6f),
+                    glm::vec3(-12.5f, 0.5f, -12.4f),
+                    glm::vec3( 12.5f, 0.5f, 15.5f),
+                    glm::vec3( 11.0f, 0.5f, 14.7f),
+                    glm::vec3(-15.3f, 0.5f, -13.3f),
+                    glm::vec3 (15.5f, 0.5f, -12.6f),
+                    glm::vec3(-12.5f, 0.5f, -13.48f),
                     glm::vec3( 3.5f, 0.5f, 2.51f),
                     glm::vec3( 4.0f, 0.5f, 1.7f),
                     glm::vec3(-3.3f, 0.5f, -2.3f),
@@ -415,12 +423,28 @@ int main() {
 
 
 
-        // render the loaded model
+        // render model house
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model,glm::vec3(0.0f,0.0f,0.0f)); // translate it down so it's at the center of the scene
-        //model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));    // it's a bit too big for our scene, so scale it down
+        model = glm::translate(model,glm::vec3(0.0f,0.0f,0.0f));
+        model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
+
+        //render model spider
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(2.0f, 0.0f, 2.0f));
+        //model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        ourShader.setMat4("model", model);
+        spiderModel.Draw(ourShader);
+
+        //render model pumpkin
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(5.0f, 10.0f, 20.0f));
+        model = glm::scale(model, glm::vec3(0.150f, 0.150f, 0.150f));
+        ourShader.setMat4("model", model);
+        pumpkinModel.Draw(ourShader);
+
+
         shader.use();
         glActiveTexture(GL_TEXTURE0);
         glBindVertexArray(planeVAO);
@@ -431,7 +455,9 @@ int main() {
         ourShader.setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
-
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
         glBindVertexArray(transparentVAO);
         glBindTexture(GL_TEXTURE_2D, transparentTexture);
         shader.setMat4("projection", projection);
@@ -446,6 +472,7 @@ int main() {
             glDrawArrays(GL_TRIANGLES, 0, 6);
 
         }
+        glDisable(GL_CULL_FACE);
 
 
         glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
